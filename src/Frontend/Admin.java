@@ -49,7 +49,9 @@ public class Admin extends javax.swing.JFrame {
             recents.removeAll(); 
             ArrayList<String> datas = dbc.getRecent();
             for (String info : datas) {
-                    recents.add(new JLabel(info));
+                JLabel label = new JLabel(info);
+                label.setFont(new Font("Arial", Font.PLAIN, 24)); // You can change "Arial" and style as needed
+                recents.add(label);
             }
             recents.setLayout(new BoxLayout(recents, BoxLayout.Y_AXIS));
             recents.revalidate(); 
@@ -439,6 +441,7 @@ public class Admin extends javax.swing.JFrame {
         TotalDonation.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         TotalDonation.setForeground(new java.awt.Color(0, 0, 0));
         TotalDonation.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TotalDonation.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -456,9 +459,9 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TotalDonation, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(0, 0, 0)
+                .addComponent(TotalDonation, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         CategoryChart.setBackground(new java.awt.Color(64, 64, 64));
@@ -715,6 +718,11 @@ public class Admin extends javax.swing.JFrame {
         AdminName.setEditable(false);
         Account.getCreds();
         AdminName.setText(Account.getName());
+        AdminName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AdminNameActionPerformed(evt);
+            }
+        });
 
         adminPassLabel.setForeground(new java.awt.Color(0, 0, 0));
         adminPassLabel.setText("New Password:");
@@ -1045,6 +1053,7 @@ public class Admin extends javax.swing.JFrame {
     private void SaveAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveAdminActionPerformed
         AdminError.setText("");
         success.setText("");
+        AdminName.setEditable(false);
         adminPassLabel.setVisible(false);
         AdminPass.setVisible(false);
         String name = Account.getName();
@@ -1062,6 +1071,7 @@ public class Admin extends javax.swing.JFrame {
     private void EditAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditAdminActionPerformed
         success.setText("");
         AdminError.setText("");
+        AdminName.setEditable(true);
         adminPassLabel.setVisible(true);
         AdminPass.setVisible(true);
         SaveAdmin.setVisible(true);
@@ -1077,6 +1087,10 @@ public class Admin extends javax.swing.JFrame {
         this.dispose();
         new GUI().setVisible(true);
     }//GEN-LAST:event_myButton3ActionPerformed
+
+    private void AdminNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AdminNameActionPerformed
     //ADMIN PAGE
     public void resetSelected(){
         b1.setBase(whiteColor);

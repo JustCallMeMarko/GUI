@@ -210,7 +210,7 @@ public class DBController implements AutoCloseable{
         return datas;
     }
     public ArrayList<String> getRecent() throws SQLException{
-        String query = "SELECT name FROM donations LIMIT 16;";
+        String query = "SELECT name FROM donations ORDER BY refer_id DESC LIMIT 9;";
         ResultSet res = stmt.executeQuery(query); 
         ArrayList<String> dataset = new ArrayList<>();
         while(res.next()) {
