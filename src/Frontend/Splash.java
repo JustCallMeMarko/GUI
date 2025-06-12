@@ -5,6 +5,10 @@
 package Frontend;
 
 import Backend.Account;
+import Backend.DBController;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -12,11 +16,17 @@ import javax.swing.JFrame;
  * @author DelRosarioHasslehoff
  */
 public class Splash extends javax.swing.JFrame {
-
+    String countDonate = "0";
+    
     /**
      * Creates new form Splash
      */
     public Splash() {
+        try (DBController dbc = new DBController()) {
+            countDonate = dbc.getDonateCount();
+        } catch (SQLException ex) {
+            Logger.getLogger(Splash.class.getName()).log(Level.SEVERE, null, ex);
+        }
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
@@ -151,7 +161,7 @@ public class Splash extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("0");
+        jLabel7.setText(countDonate);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -273,9 +283,9 @@ public class Splash extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(243, Short.MAX_VALUE)
+                .addContainerGap(211, Short.MAX_VALUE)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addContainerGap(210, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)

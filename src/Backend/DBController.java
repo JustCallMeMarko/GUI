@@ -151,6 +151,17 @@ public class DBController implements AutoCloseable{
 
         return datas;
     }
+    
+    public String getDonateCount() throws SQLException {
+        String query = "SELECT COUNT(*) AS count FROM donations";
+        ResultSet res = stmt.executeQuery(query); 
+        int sum = 0;
+        if(res.next()) {
+            sum = res.getInt("count");
+        }
+
+        return Integer.toString(sum);
+    }
 
     public void deleteUserById(int userId) throws SQLException {
         String query = "DELETE FROM users WHERE user_id = ?";
