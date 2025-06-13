@@ -39,7 +39,6 @@ public class MyCharts {
     
         piePlot.setBackgroundPaint(Color.WHITE);
         
-        //create chartPanel to display chart(graph)
         ChartPanel pieChartPanel = new ChartPanel(piechart);
         return pieChartPanel;
     }
@@ -56,14 +55,13 @@ public class MyCharts {
                 "Amount",
                 barData,
                 PlotOrientation.VERTICAL,
-                false, // no legend needed with only one series
+                false, 
                 true,
                 false
         );
         CategoryPlot plot = chart.getCategoryPlot();
         plot.setBackgroundPaint(Color.lightGray);
         
-        //create chartPanel to display chart(graph)
         ChartPanel barChartPanel = new ChartPanel(chart);
         return barChartPanel;
     }
@@ -79,14 +77,13 @@ public class MyCharts {
                 "Amount",
                 barData,
                 PlotOrientation.VERTICAL,
-                false, // no legend needed with only one series
+                false, 
                 true,
                 false
         );
         CategoryPlot plot = chart.getCategoryPlot();
         plot.setBackgroundPaint(Color.lightGray);
         
-        //create chartPanel to display chart(graph)
         ChartPanel barChartPanel = new ChartPanel(chart);
         return barChartPanel;
     }

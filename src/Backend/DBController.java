@@ -43,7 +43,6 @@ public class DBController implements AutoCloseable{
     public ArrayList<ArrayList<String>> getFilteredDonations(String option, String filter) throws SQLException {
         ArrayList<ArrayList<String>> donations = new ArrayList<>();
 
-        // Select program or school depending on the filter
         String selectClause;
         boolean filteringBySchool = option.equalsIgnoreCase("school");
 
@@ -293,17 +292,16 @@ public class DBController implements AutoCloseable{
             throw new SQLException("Username not found: " + Account.getName());
         }
 
-        // Now insert the donation with the retrieved user_id
         String insertQuery = "INSERT INTO donations (item, qty, user_id, name, category_id, program_id, section, donation_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         pstmt = conn.prepareStatement(insertQuery);
 
         LocalDate date = LocalDate.now();
         pstmt.setString(1, item);
         pstmt.setInt(2, qty);
-        pstmt.setInt(3, userId);                   // use actual user ID from DB
+        pstmt.setInt(3, userId);                   
         pstmt.setString(4, name);
-        pstmt.setInt(5, cat + 1);                  // adjust index if needed
-        pstmt.setInt(6, prog + 1);                 // adjust index if needed
+        pstmt.setInt(5, cat + 1);                  
+        pstmt.setInt(6, prog + 1);                
         pstmt.setString(7, section);
         pstmt.setDate(8, java.sql.Date.valueOf(date));
 

@@ -38,9 +38,9 @@ public class Admin extends javax.swing.JFrame {
     public Admin() {
         
         initComponents();
-        b1.setBase(selectedColor); //set selected to dashboard
+        b1.setBase(selectedColor); 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        showCharts(); //shows all charts
+        showCharts(); 
     }
     //DASHBOARD METHODS
     private JPanel recents = new JPanel();
@@ -50,7 +50,7 @@ public class Admin extends javax.swing.JFrame {
             ArrayList<String> datas = dbc.getRecent();
             for (String info : datas) {
                 JLabel label = new JLabel(info);
-                label.setFont(new Font("Arial", Font.PLAIN, 24)); // You can change "Arial" and style as needed
+                label.setFont(new Font("Arial", Font.PLAIN, 24)); 
                 recents.add(label);
             }
             recents.setLayout(new BoxLayout(recents, BoxLayout.Y_AXIS));
@@ -76,8 +76,8 @@ public class Admin extends javax.swing.JFrame {
     }
     private JLabel showSQLError(){
         JLabel errorLabel = new JLabel("Can't connect with database", SwingConstants.CENTER);
-        errorLabel.setForeground(new Color(0xcf4040)); // Set text color to red
-        errorLabel.setFont(new Font("SansSerif", Font.BOLD, 24)); // Set font type, style, and size
+        errorLabel.setForeground(new Color(0xcf4040)); 
+        errorLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
         return errorLabel;
     }
     private final void showCharts(){
@@ -1031,7 +1031,7 @@ public class Admin extends javax.swing.JFrame {
                    errorExport.setText("");
                }
            } catch (Exception e) {
-               e.printStackTrace(); // Log for debugging
+               e.printStackTrace(); 
                errorExport.setText("Failed to connect to the database or export PDF.");
            }
        } else {

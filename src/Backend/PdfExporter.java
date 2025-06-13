@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class PdfExporter {
 
     public void exportToPDF(JFrame parent, ArrayList<ArrayList<String>> data, String title) {
-        // Open file chooser to select save location
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Save PDF");
         fileChooser.setSelectedFile(new java.io.File(title.replace(" ", "_") + ".pdf"));
@@ -19,7 +18,6 @@ public class PdfExporter {
         if (userSelection != JFileChooser.APPROVE_OPTION) return;
 
         try {
-            // Create the PDF document
             Document document = new Document(PageSize.A4);
             PdfWriter.getInstance(document, new FileOutputStream(fileChooser.getSelectedFile()));
             document.open();

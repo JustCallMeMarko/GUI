@@ -29,7 +29,6 @@ public class MyDashboard extends JButton{
         hover = new Color(0x386BB8);
         setContentAreaFilled(false);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
-        //  Add event mouse
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent me) {

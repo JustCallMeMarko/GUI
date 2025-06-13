@@ -29,7 +29,6 @@ public class MyButton extends JButton{
         hover = new Color(179, 250, 160);
         setContentAreaFilled(false);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
-        //  Add event mouse
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent me) {
