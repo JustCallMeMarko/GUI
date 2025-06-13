@@ -8,7 +8,6 @@ package Frontend;
 
 import Backend.Account;
 import Backend.DBController;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -227,36 +226,40 @@ public class GUI extends javax.swing.JFrame {
         String name = username.getText();
         char[] passchar = password.getPassword();
         String pass = new String(passchar);
-        boolean verified = false;
+        int verified = 0;
         if(name.isEmpty() || pass.isEmpty()){
             tries--;
             errorMsg.setText("please input username and pass: " + tries + " tries left");
             return;
         }
-        if(tries > 0){
+        
             try (DBController dbc = new DBController()) {
                 verified = dbc.verifyLogin(name, pass);
                 setIsAdmin(dbc.isAdmin(name, pass));
+                System.out.println("works");
+                if(tries > 0){
+                    if(verified > 0){
+                        this.dispose();
+                        Account.setCreds(Integer.toString(verified), name, pass);
+                        Account.savedCreds();
+                        if(isIsAdmin()){
+                            new Admin().setVisible(true);
+                        }else{
+                            new Splash().setVisible(true);
+                        }
+                    }else{
+                        tries--;
+                        errorMsg.setText("Incorrect: " + tries + " tries left");
+                    }
+                }else{
+                    errorMsg.setText("Please try again later");
+                }
             } catch (SQLException ex) {
+                ex.getMessage();
+                ex.printStackTrace();
                 errorMsg.setText("Failed to connect with the database");
             }
-
-            if(verified){
-                this.dispose();
-                Account.setCreds(name, pass);
-                Account.savedCreds();
-                if(isIsAdmin()){
-                    new Admin().setVisible(true);
-                }else{
-                    new Splash().setVisible(true);
-                }
-            }else{
-                tries--;
-                errorMsg.setText("Incorrect: " + tries + " tries left");
-            }
-        }else{
-            errorMsg.setText("Please try again after 30 minutes");
-        }
+        
     }//GEN-LAST:event_myButton1ActionPerformed
 
     /**

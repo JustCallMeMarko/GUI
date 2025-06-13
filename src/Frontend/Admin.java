@@ -998,6 +998,15 @@ public class Admin extends javax.swing.JFrame {
 
     private void b4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b4ActionPerformed
         resetSelected();
+        Account.getCreds();
+        SaveAdmin.setVisible(false);
+        AdminPass.setText("");
+        AdminName.setText(Account.getName());
+        AdminError.setText("");
+        success.setText("");
+        AdminName.setEditable(false);
+        adminPassLabel.setVisible(false);
+        AdminPass.setVisible(false);
         b4.setBase(selectedColor);
         jTabbedPane1.setSelectedIndex(3);
     }//GEN-LAST:event_b4ActionPerformed
@@ -1060,7 +1069,10 @@ public class Admin extends javax.swing.JFrame {
         String newPass = AdminPass.getText();
         String newName = AdminName.getText();
         try (DBController dbc = new DBController()) {
-            dbc.updatePass(name, newPass, newName);
+            Account.getCreds();
+            dbc.updatePass(Integer.parseInt(Account.getId()), newPass, newName);
+            Account.setCreds(Account.getId(), newName, newPass);
+            Account.savedCreds();  
             success.setText("Changed successfully");
         } catch (SQLException ex) {
             AdminError.setText("Failed to connect with the database");

@@ -13,8 +13,12 @@ import java.security.NoSuchAlgorithmException;
 
 public class Account {
     private static String name = "defaultUser";
+    private static String id = "-1";
     private static String hashedPass = hashPass("defaultPass");
     
+     public static String getId() {
+         return id;
+    }
  //Hash the password using SHA-256
     private static String hashPass(String password){
         try{
@@ -33,26 +37,25 @@ public class Account {
         return hashPass(pass);
     }
     //Pagset ng credentials
-    public static void setCreds(String newName, String plainPass){
+    public static void setCreds(String newId, String newName, String plainPass){
+        id = newId;
         name = newName;
-        hashedPass = hashPass(plainPass);
-        System.out.println("Credentials set for user: "+ name);            
+        hashedPass = hashPass(plainPass);  
     }
 
     //Pagsave ng file
     public static void savedCreds(){
         try (PrintWriter writer = new PrintWriter(new FileWriter("creds.csv"))){
-            writer.println("Name,HashedPass");
-            writer.println(name + "," + hashedPass);
-            System.out.println("Credentials saved.");
+            writer.println("Id,Name,HashedPass");
+            writer.println(id + "," + name + "," + hashedPass);
         } catch (IOException e) {
             System.out.println("Error saving credentials: " + e.getMessage());
         }
     }
     public static void logoutSaved(){
         try (PrintWriter writer = new PrintWriter(new FileWriter("creds.csv"))){
-            writer.println("Name,HashedPass");
-            writer.println("idk, idk");
+            writer.println("Id,Name,HashedPass");
+            writer.println("-1, idk, idk");
             System.out.println("Credentials saved.");
         } catch (IOException e) {
             System.out.println("Error saving credentials: " + e.getMessage());
@@ -62,13 +65,13 @@ public class Account {
     //Pagload ng file
     public static void getCreds(){
         try (BufferedReader reader = new BufferedReader(new FileReader("creds.csv"))) {
-            reader.readLine(); // Skip header
+            reader.readLine(); 
             String line = reader.readLine();
             if (line != null){
                 String[] parts = line.split(",");
-                name = parts[0];
-                hashedPass = parts[1];
-                System.out.println("Credentials loaded.");
+                id = parts[0];
+                name = parts[1];
+                hashedPass = parts[2];
             }
         } catch (IOException e) {
             System.out.println("Error loading credentials: " + e.getMessage());

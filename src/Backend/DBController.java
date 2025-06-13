@@ -236,13 +236,17 @@ public class DBController implements AutoCloseable{
         return datas;
     }
 
-    public boolean verifyLogin(String name, String pass) throws SQLException {
-        String query = "SELECT * FROM users WHERE username = ? AND password = ?";
+    public int verifyLogin(String name, String pass) throws SQLException {
+        String query = "SELECT user_id FROM users WHERE username = ? AND password = ?";
         pstmt = conn.prepareStatement(query);
         pstmt.setString(1, name);
         pstmt.setString(2, pass);
         ResultSet res = pstmt.executeQuery();
-        return res.next();
+        int result = 0;
+        if(res.next()){
+            result = res.getInt("user_id");
+        }
+        return result;
     }
     public boolean isAdmin(String name, String pass) throws SQLException {
         String query = "SELECT * FROM users WHERE username = ? AND password = ?";
@@ -324,12 +328,12 @@ public class DBController implements AutoCloseable{
         pstmt.setInt(3, userId);
         pstmt.executeUpdate();
     }
-    public void updatePass(String username, String newPass, String newUsername) throws SQLException {
-        String query = "UPDATE users SET username = ?, password = ? WHERE username = ?";
+    public void updatePass(int id, String newPass, String newUsername) throws SQLException {
+        String query = "UPDATE users SET username = ?, password = ? WHERE user_id = ?";
         pstmt = conn.prepareStatement(query);
         pstmt.setString(1, newUsername);
         pstmt.setString(2, newPass);
-        pstmt.setString(3, username);
+        pstmt.setInt(3, id);
         pstmt.executeUpdate();
     }
 
